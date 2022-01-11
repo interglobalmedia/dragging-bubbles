@@ -15,7 +15,7 @@
     "scss": "node-sass --watch styles/scss -o styles/css",
     "clean": "rm -rf dist/ && mkdir dist/",
     "cleanSCSS": "rm -rf dist/styles/scss",
-    "build": "cp -R scripts styles dist/ && cp favicon.ico index.html dist/",
+    "build": "cp -R audio scripts styles dist/ && cp favicon.ico index.html dist/",
     "deploy": "gh-pages -d dist"
   },
   "repository": {
