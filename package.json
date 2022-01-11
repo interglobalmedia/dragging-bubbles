@@ -1,0 +1,56 @@
+{
+  "name": "comet-canvas",
+  "version": "1.0.0",
+  "description": "A comet flying around the 2D Canvas created with HTML5 2D Canvas.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint .",
+    "scss-lint": "stylelint **/*.scss",
+    "fix": "npx eslint . --fix",
+    "eslint-check": "eslint --print-config '*.js'",
+    "prettier": "prettier --ignore-path .gitignore \"**/*.+(ts|tsx|js|jsx|json|css|md|mdx|html)\"",
+    "format": "npm run prettier -- --write",
+    "check-format": "npm run prettier -- --list-different",
+    "scss": "node-sass --watch styles/scss -o styles/css",
+    "clean": "rm -rf dist/ && mkdir dist/",
+    "cleanSCSS": "rm -rf dist/styles/scss",
+    "build": "cp -R scripts styles dist/ && cp favicon.ico index.html dist/",
+    "deploy": "gh-pages -d dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/interglobalmedia/comet-canvas.git"
+  },
+  "author": "Maria D. Campbell",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/interglobalmedia/comet-canvas/issues"
+  },
+  "homepage": "https://github.com/interglobalmedia/comet-canvas#readme",
+  "dependencies": {
+    "gh-pages": "^3.2.3"
+  },
+  "devDependencies": {
+    "eslint": "^8.6.0",
+    "eslint-cli": "^1.1.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-prettier": "^4.0.0",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.1.5",
+    "node-sass": "^7.0.1",
+    "prettier": "^2.5.1",
+    "stylelint": "^14.2.0",
+    "stylelint-config-standard-scss": "^3.0.0",
+    "sugarss": "^4.0.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+        "*.{js,css,md}": "prettier --write"
+    }
+}
