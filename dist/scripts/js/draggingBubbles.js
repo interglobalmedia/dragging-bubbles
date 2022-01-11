@@ -102,35 +102,8 @@ function init() {
 }
 
 // web audio api code
-
-const crossFadeAudios = {
-	lateNightDrive: {
-		src: 'audio/Late_Night_Drive.mp3',
-		volume: 1,
-		loop: true
-	},
-	commanderImpulseDivKid: {
-		src: 'audio/Commander_Impulse_DivKid.mp3',
-		volume: 0,
-		loop: true
-	}
-}
-
-function crossFadeSounds(a, b) {
-	let currentTime = ctx.currentTime;
-	let fadeTime = 3;
-	// fade out
-	a.gainNode.gain.linearRampToValueAtTime(1, currentTime);
-	a.gainNode.gain.linearRampToValueAtTime(0, currentTime + fadeTime);
-
-	// fade in
-	b.gainNode.gain.linearRampToValueAtTime(0, currentTime);
-	b.gainNode.gain.linearRampToValueAtTime(1, currentTime + fadeTime);
-}
-
 const ctx = new AudioContext();
-const audioElements = Array.from(document.querySelectorAll('.track'));
-console.log(typeof audioElements === 'array');
+const audioElement = document.getElementById('track');
 /* set loop property on audio element and dynamically add the loop attribute to the audio element. Set the value of the attribute to true. */
 audioElement.loop = true;
 const source = ctx.createMediaElementSource(audioElement);
@@ -139,7 +112,7 @@ source.connect(ctx.destination);
 // create buffer source using AJAX request
 const bufferSource = ctx.createBufferSource();
 const request = new XMLHttpRequest();
-request.open('GET', crossFadeAudios, true);
+request.open('GET', 'audio/Late_Night_Drive.mp3', true);
 request.responseType = 'arraybuffer';
 request.onload = () => {
 	ctx.decodeAudioData(request.response, (buffer) => {
@@ -155,8 +128,8 @@ bufferSource.start();
 
 /* place audioElement.play() inside function so that audio only starts when click on start button instead of on page load. */
 function play() {
-	crossFadeSounds(crossFadeAudios.lateNightDrive, crossFadeAudios.commanderImpulseDivKid);
-	crossFadeSounds(crossFadeAudios.lateNightDrive, crossFadeAudios.commanderImpulseDivKid).play();
+	const audioElement = document.getElementById('track');
+	audioElement.play();
 }
 
 canvas.addEventListener("mousemove", function (e) {
