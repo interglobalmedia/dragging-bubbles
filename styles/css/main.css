@@ -49,7 +49,6 @@ input[type=range]::-webkit-slider-thumb {
   height: 34px;
   width: 16px;
   border-radius: 3px;
-  background: #ff9800;
   background: #7200ea;
   cursor: pointer;
   /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
@@ -76,7 +75,7 @@ input[type=range]::-moz-range-thumb {
   height: 34px;
   width: 16px;
   border-radius: 3px;
-  background: #ff9800;
+  background: #7200ea;
   cursor: pointer; }
 
 /* This gives us invisible or unstyled range inputs in all browsers. Now we can apply our custom styles.*/
@@ -110,7 +109,7 @@ input[type=range]::-ms-thumb {
   height: 34px;
   width: 16px;
   border-radius: 3px;
-  background: #ff9800;
+  background: #7200ea;
   cursor: pointer; }
 
 input[type=range]:focus::-ms-fill-lower {
