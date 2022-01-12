@@ -102,16 +102,6 @@ function init() {
 }
 
 // web audio api code
-const crossFadeAudio = {
-	lateNight: {
-		src: 'audio/Late_Night_Drive.mp3',
-		volume: 1,
-		loop: true
-	},
-	commanderImpulse: 'audio/Commander_Impulse_DivKid.mp3',
-	volume: 0,
-	loop: true
-}
 const audioContext = new AudioContext();
 const audioElement1 = document.getElementById('track1');
 const audioElement2 = document.getElementById('track2');
