@@ -6,7 +6,7 @@ function init() {
 	context = canvas.getContext("2d");
 	canvas.width = window.innerWidth;
 	canvas.height = window.innerHeight;
-	canvas.addEventListener("mousemove", MouseMove, false);
+	canvas.addEventListener("mousemove", mouseMove, false);
 
 	mouse = {
 		x: 0,
@@ -55,7 +55,7 @@ function init() {
 		"rgba(255, 255, 0, 0.5)",
 	];
 
-	function MouseMove(event) {
+	function mouseMove(event) {
 		mouse.x = event.pageX - canvas.offsetLeft;
 		mouse.y = event.pageY - canvas.offsetLeft;
 	}
@@ -74,10 +74,10 @@ function init() {
 	function vibrate() {
 		context.fillStyle = "blue";
 		context.fillRect(0, 0, canvas.width, canvas.height);
-		for (var j = 0; j < particleHolder.length; j++) {
-			var p = particleHolder[j];
-			var distanceX = p.x - mouse.x;
-			var distanceY = p.y - mouse.y;
+		for (let j = 0; j < particleHolder.length; j++) {
+			let p = particleHolder[j];
+			let distanceX = p.x - mouse.x;
+			let distanceY = p.y - mouse.y;
 			particleDistance = Math.sqrt(
 				distanceX * distanceX + distanceY * distanceY
 			);
@@ -102,20 +102,37 @@ function init() {
 }
 
 // web audio api code
-const ctx = new AudioContext();
-const audioElement = document.getElementById('track');
+const crossFadeAudio = {
+	lateNight: {
+		src: 'audio/Late_Night_Drive.mp3',
+		volume: 1,
+		loop: true
+	},
+	commanderImpulse: 'audio/Commander_Impulse_DivKid.mp3',
+	volume: 0,
+	loop: true
+}
+const audioContext = new AudioContext();
+const audioElement1 = document.getElementById('track1');
+const audioElement2 = document.getElementById('track2');
 /* set loop property on audio element and dynamically add the loop attribute to the audio element. Set the value of the attribute to true. */
-audioElement.loop = true;
-const source = ctx.createMediaElementSource(audioElement);
+audioElement1.loop = true;
+const source1 = audioContext.createMediaElementSource(audioElement1);
+audioElement2.loop = true;
+const source2 = audioContext.createMediaElementSource(audioElement2);
 
-source.connect(ctx.destination);
+// create the volume control
+const gainNode = audioContext.createGain()
+
+source1.connect(gainNode).connect(audioContext.destination);
+source2.connect(gainNode).connect(audioContext.destination);
 // create buffer source using AJAX request
-const bufferSource = ctx.createBufferSource();
+const bufferSource = audioContext.createBufferSource();
 const request = new XMLHttpRequest();
 request.open('GET', 'audio/Late_Night_Drive.mp3', true);
 request.responseType = 'arraybuffer';
 request.onload = () => {
-	ctx.decodeAudioData(request.response, (buffer) => {
+	audioContext.decodeAudioData(request.response, (buffer) => {
 		bufferSource.buffer = buffer;
 		// ...
 	});
@@ -128,27 +145,40 @@ bufferSource.start();
 
 /* place audioElement.play() inside function so that audio only starts when click on start button instead of on page load. */
 function play() {
-	const audioElement = document.getElementById('track');
-	audioElement.play();
+	const audioElement1 = document.getElementById('track1');
+	const audioElement2 = document.getElementById('track2');
+	audioElement1.play();
+	audioElement2.play();
 }
 
 canvas.addEventListener("mousemove", function (e) {
 	mouse.x = e.pageX - canvas.offsetLeft;
 	mouse.y = e.pageY - canvas.offsetLeft;
 	play();
-	if (ctx.state === 'suspended') {
-		ctx.resume();
+	if (audioContext.state === 'suspended') {
+		audioContext.resume();
 	}
 });
 
 canvas.addEventListener("click", function (e) {
-	ctx.suspend();
+	audioContext.suspend();
 	bufferSource.stop();
-	audioElement.pause();
+	audioElement1.pause();
+	audioElement2.pause();
 });
 
 canvas.addEventListener("mouseout", function (e) {
-	ctx.suspend();
+	audioContext.suspend();
 	bufferSource.stop();
-	audioElement.pause();
+	audioElement1.pause();
+	audioElement2.pause();
 });
+
+const volumeControl = document.querySelector('#volume')
+volumeControl.addEventListener(
+    'input',
+    function () {
+		gainNode.gain.value = this.value
+    },
+    false
+)
