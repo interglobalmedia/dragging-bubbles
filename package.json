@@ -1,5 +1,5 @@
 {
-  "name": "comet-canvas",
+  "name": "dragging-bubbles",
   "version": "1.0.0",
   "description": "A comet flying around the 2D Canvas created with HTML5 2D Canvas.",
   "main": "index.js",
@@ -20,14 +20,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/interglobalmedia/comet-canvas.git"
+    "url": "git+https://github.com/interglobalmedia/dragging-bubbles.git"
   },
   "author": "Maria D. Campbell",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/interglobalmedia/comet-canvas/issues"
+    "url": "https://github.com/interglobalmedia/dragging-bubbles/issues"
   },
-  "homepage": "https://github.com/interglobalmedia/comet-canvas#readme",
+  "homepage": "https://github.com/interglobalmedia/dragging-bubbles#readme",
   "dependencies": {
     "gh-pages": "^3.2.3"
   },
