@@ -188,7 +188,7 @@ const btnRefresh = document.querySelector('.btn-refresh')
 
 btnPlus.addEventListener('mousedown', function () {
 	currGain = 1.0;
-	gainNode.gain.linearRampToValueAtTime(1.0, audioContext.currentTime + 3, 3);
+	gainNode.gain.setTargetAtTime(1.0, audioContext.currentTime + 3, 3);
 })
 
 btnMinus.addEventListener('mousedown', function () {
