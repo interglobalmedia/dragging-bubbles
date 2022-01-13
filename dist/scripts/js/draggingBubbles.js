@@ -197,3 +197,32 @@ btnMinus.addEventListener('mousedown', function () {
 })
 
 btnRefresh.addEventListener('mousedown', refresh)
+
+function touch2Mouse(e) {
+	let theTouch = e.changedTouches[0];
+	let mouseEvt;
+
+	switch (e.type) {
+		case 'touchstart':
+			mouseEvt = 'mousedown';
+			break;
+		case 'touchend':
+			mouseEvt = 'mouseup';
+			break;
+		case 'touchmove':
+			mouseEvt = 'mousemove';
+			break;
+		case 'touchmove':
+			mouseEvt = 'mouseover';
+		default:
+			return;
+	}
+	const mouseEvent = document.createEvent('MouseEvent');
+	mouseEvent.initMouseEvent(mouseEvt, true, true, window, 1, theTouch.screenX, theTouch.screenY, theTouch.clientX, theTouch.clientY, false, false, false, false, 0, null);
+	theTouch.target.dispatchEvent(mouseEvent);
+	e.preventDefault();
+}
+
+canvas.addEventListener('touchstart', touch2Mouse, true);
+canvas.addEventListener('touchmove', touch2Mouse, true);
+canvas.addEventListener('touchend', touch2Mouse, true);

@@ -1,0 +1,179 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: radial-gradient(ellipse at bottom, #0d1d31 0%, #0c0d13 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+canvas {
+    background: rgba(161,193,129, 1);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0 auto;
+    position: relative;
+    width: 100vw;
+    z-index: 0;
+}
+
+#volume {
+    cursor: pointer;
+    top: 0.5rem;
+    left: 50%;
+    z-index: 1;
+    transform: translateX(-50%);
+    width: 90%;
+    background: #07c97c;
+    border-radius: 1.3px;
+    border: 0.2px solid #0d0d0d;
+    box-shadow: 1px 1px 1px #0d0d0d,
+        0px 0px 1px #0d0d0d;
+    position: absolute;
+    -webkit-appearance: none;
+}
+
+/* Styling the track */
+input[type=range]::-webkit-slider-runnable-track {
+    width: 50%;
+    height: 10px;
+    cursor: pointer;
+    box-shadow: 1px 1px 1px #0d0d0d,
+        0px 0px 1px #0d0d0d;
+    background: #07c97c;
+    border-radius: 1.3px;
+    border: 0.2px solid #0d0d0d;
+}
+
+/* Special Styling for Webkit/Blink */
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: 1px solid #0d0d0d;
+    height: 34px;
+    width: 16px;
+    border-radius: 3px;
+    background: #7200ea;
+    cursor: pointer;
+    /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+    margin-top: -4px;
+    /* Add cool effects to your sliders! */
+    box-shadow: 1px 1px 1px #0d0d0d,
+        0px 0px 1px #0d0d0d;
+}
+
+input[type=range]:focus::-webkit-slider-runnable-track {
+    background: #07c97c;
+    box-shadow: 1px 1px 1px #0d0d0d,
+        0px 0px 1px #0d0d0d;
+    border: 0.2px solid #0d0d0d;
+}
+
+/* All the same stuff for Firefox */
+input[type=range]::-moz-range-thumb {
+    box-shadow: 1px 1px 1px #0d0d0d,
+        0px 0px 1px #0d0d0d;
+    border: 1px solid #0d0d0d;
+    height: 34px;
+    width: 16px;
+    border-radius: 3px;
+    background: #7200ea;
+    cursor: pointer;
+}
+
+/* This gives us invisible or unstyled range inputs in all browsers. Now we can apply our custom styles.*/
+input[type=range]::-ms-track {
+    width: 50%;
+    cursor: pointer;
+    height: 10px;
+    cursor: pointer;
+    /* Hides the slider so custom styles can be added */
+    background: transparent;
+    border-color: transparent;
+    border-width: 16px 0;
+    color: transparent;
+}
+
+input[type=range]::-ms-fill-lower {
+    background: #07c97c;
+    border: 0.2px solid #0d0d0d;
+    border-radius: 2.6px;
+    box-shadow: 1px 1px 1px pink,
+        0px 0px 1px #0d0d0d;
+}
+
+input[type=range]::-ms-fill-upper {
+    background: #07c97c;
+    border: 0.2px solid #0d0d0d;
+    border-radius: 2.6px;
+    box-shadow: 1px 1px 1px #0d0d0d,
+        0px 0px 1px #0d0d0d;
+}
+
+/* All the same stuff for IE */
+input[type=range]::-ms-thumb {
+    box-shadow: 1px 1px 1px #0d0d0d,
+        0px 0px 1px #0d0d0d;
+    border: 1px solid #0d0d0d;
+    height: 34px;
+    width: 16px;
+    border-radius: 3px;
+    background: #7200ea;
+    cursor: pointer;
+}
+
+input[type=range]:focus::-ms-fill-lower {
+    background: #07c97c;
+}
+
+input[type=range]:focus::-ms-fill-upper {
+    background: #07c97c;
+}
+
+/* plus and minus button styling */
+
+.btns-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    // justify-content: space-between;
+    left: 50%;
+    top: 20%;
+    margin-left: -5.25rem;
+    position: absolute;
+    & button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #7200ea;
+        border: 1px solid #0d0d0d;
+        border-radius: 5px;
+        box-shadow: 0 5px #0d0d0d;
+        color: #07c97c;
+        cursor: pointer;
+        font-size: 1.5rem;
+        height: 30px;
+        margin-right: 10px;
+        outline: none;
+        width: 50px;
+        z-index: 1;
+        &:hover {
+            box-shadow: 0 2px #0d0d0d;
+            transform: translateY(4px);
+        }
+
+        &:active {
+            box-shadow: 0 2px #0d0d0d;
+            transform: translateY(4px);
+        }
+    }
+}
+
