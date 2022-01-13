@@ -5,15 +5,26 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comet Canvas</title>
+    <title>Dragging Bubbles</title>
     <link rel="icon" href="favicon.ico">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="styles/css/main.css">
 </head>
 
 <body>
+    <div class="btns-wrapper">
+        <button class="btn btn-plus"><span class="material-icons">
+                add
+            </span></button>
+        <button class="btn btn-minus"><span class="material-icons">
+                remove
+            </span></button>
+        <button class="btn btn-refresh"><span class="material-icons">
+                refresh
+            </span></button>
+    </div>
     <div class="audios">
         <input type="range" id="volume" min="0" max="2" value="1" step="0.01">
-
         <audio id="track1" src="audio/Late_Night_Drive.mp3" type="audio/mpeg"></audio>
         <audio id="track2" src="audio/Commander_Impulse_DivKid.mp3" type="audio/mpeg"></audio>
     </div>
