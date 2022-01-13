@@ -273,3 +273,7 @@ function touch2Mouse(e) {
 	theTouch.target.dispatchEvent(mouseEvent);
 	e.preventDefault();
 }
+
+canvas.addEventListener("touchstart", touch2Mouse, true);
+canvas.addEventListener("touchmove", touch2Mouse, true);
+canvas.addEventListener("touchend", touch2Mouse, true);
