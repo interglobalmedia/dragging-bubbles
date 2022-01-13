@@ -146,6 +146,10 @@ function play() {
 canvas.addEventListener("mousemove", function (e) {
 	mouse.x = e.pageX - canvas.offsetLeft;
 	mouse.y = e.pageY - canvas.offsetLeft;
+	play();
+	if (audioContext.state === 'suspended') {
+		audioContext.resume();
+	}
 });
 
 canvas.addEventListener("mouseover", function () {
