@@ -113,6 +113,8 @@ const source2 = audioContext.createMediaElementSource(audioElement2);
 
 // create the volume control
 const gainNode = audioContext.createGain()
+gainNode.gain.value = 0.5
+let currGain = gainNode.gain.value
 
 source1.connect(gainNode).connect(audioContext.destination);
 source2.connect(gainNode).connect(audioContext.destination);
@@ -144,11 +146,14 @@ function play() {
 canvas.addEventListener("mousemove", function (e) {
 	mouse.x = e.pageX - canvas.offsetLeft;
 	mouse.y = e.pageY - canvas.offsetLeft;
+});
+
+canvas.addEventListener("mouseover", function () {
 	play();
 	if (audioContext.state === 'suspended') {
 		audioContext.resume();
 	}
-});
+})
 
 canvas.addEventListener("click", function (e) {
 	audioContext.suspend();
@@ -157,7 +162,7 @@ canvas.addEventListener("click", function (e) {
 	audioElement2.pause();
 });
 
-canvas.addEventListener("mouseout", function (e) {
+canvas.addEventListener("mouseup", function (e) {
 	audioContext.suspend();
 	bufferSource.stop();
 	audioElement1.pause();
@@ -172,3 +177,23 @@ volumeControl.addEventListener(
     },
     false
 )
+
+function refresh() {
+	document.location.reload()
+}
+
+const btnPlus = document.querySelector('.btn-plus')
+const btnMinus = document.querySelector('.btn-minus')
+const btnRefresh = document.querySelector('.btn-refresh')
+
+btnPlus.addEventListener('mousedown', function () {
+	currGain = 1.0;
+	gainNode.gain.setTargetAtTime(1.0, audioContext.currentTime + 3, 3);
+})
+
+btnMinus.addEventListener('mousedown', function () {
+	currGain = 0;
+	gainNode.gain.setTargetAtTime(0, audioContext.currentTime + 3, 3);
+})
+
+btnRefresh.addEventListener('mousedown', refresh)
