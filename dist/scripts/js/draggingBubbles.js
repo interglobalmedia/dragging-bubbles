@@ -143,6 +143,8 @@ function play() {
 	audioElement2.play();
 }
 
+// start mousemove
+
 canvas.addEventListener("mousemove", function (e) {
 	mouse.x = e.pageX - canvas.offsetLeft;
 	mouse.y = e.pageY - canvas.offsetLeft;
@@ -152,12 +154,50 @@ canvas.addEventListener("mousemove", function (e) {
 	}
 });
 
+canvas.addEventListener("touchstart", function (e) {
+	mouse.x = e.pageX - canvas.offsetLeft;
+	mouse.y = e.pageY - canvas.offsetLeft;
+	play();
+	if (audioContext.state === 'suspended') {
+		audioContext.resume();
+	}
+});
+
+canvas.addEventListener("touchmove", function (e) {
+	mouse.x = e.pageX - canvas.offsetLeft;
+	mouse.y = e.pageY - canvas.offsetLeft;
+	play();
+	if (audioContext.state === 'suspended') {
+		audioContext.resume();
+	}
+});
+
+// end mousemove
+
+// start mousover
+
 canvas.addEventListener("mouseover", function () {
 	play();
 	if (audioContext.state === 'suspended') {
 		audioContext.resume();
 	}
 })
+
+canvas.addEventListener("touchstart", function () {
+	play();
+	if (audioContext.state === 'suspended') {
+		audioContext.resume();
+	}
+})
+
+canvas.addEventListener("touchmove", function () {
+	play();
+	if (audioContext.state === 'suspended') {
+		audioContext.resume();
+	}
+})
+
+// end mouseover
 
 canvas.addEventListener("click", function (e) {
 	audioContext.suspend();
@@ -166,6 +206,8 @@ canvas.addEventListener("click", function (e) {
 	audioElement2.pause();
 });
 
+// start mouseup
+
 canvas.addEventListener("mouseup", function (e) {
 	audioContext.suspend();
 	bufferSource.stop();
@@ -173,12 +215,32 @@ canvas.addEventListener("mouseup", function (e) {
 	audioElement2.pause();
 });
 
+canvas.addEventListener("touchend", function (e) {
+	audioContext.suspend();
+	bufferSource.stop();
+	audioElement1.pause();
+	audioElement2.pause();
+});
+
+// end mouseup
+
+// start mouseout
+
 canvas.addEventListener("mouseout", function (e) {
 	audioContext.suspend();
 	bufferSource.stop();
 	audioElement1.pause();
 	audioElement2.pause();
 });
+
+canvas.addEventListener("touchend", function (e) {
+	audioContext.suspend();
+	bufferSource.stop();
+	audioElement1.pause();
+	audioElement2.pause();
+});
+
+// end mouseout
 
 const volumeControl = document.querySelector('#volume')
 volumeControl.addEventListener(
@@ -197,50 +259,39 @@ const btnPlus = document.querySelector('.btn-plus')
 const btnMinus = document.querySelector('.btn-minus')
 const btnRefresh = document.querySelector('.btn-refresh')
 
+// start btnPlus
+
 btnPlus.addEventListener('mousedown', function () {
 	currGain = 1.0;
 	gainNode.gain.setTargetAtTime(1.0, audioContext.currentTime + 3, 3);
 })
+
+btnPlus.addEventListener('touchstart', function () {
+	currGain = 1.0;
+	gainNode.gain.setTargetAtTime(1.0, audioContext.currentTime + 3, 3);
+})
+
+// end btnPlus
+
+// start btnMinus
 
 btnMinus.addEventListener('mousedown', function () {
 	currGain = 0;
 	gainNode.gain.setTargetAtTime(0, audioContext.currentTime + 3, 3);
 })
 
+btnMinus.addEventListener('touchstart', function () {
+	currGain = 0;
+	gainNode.gain.setTargetAtTime(0, audioContext.currentTime + 3, 3);
+})
+
+//end btnMinus
+
+// start btnRefresh
+
 btnRefresh.addEventListener('mousedown', refresh)
 
-function touch2Mouse(e) {
-	let theTouch = e.changedTouches[0];
-	let mouseEvt;
 
-	switch (e.type) {
-		case 'touchstart':
-			mouseEvt = 'mousemove';
-			break;
-		case 'touchstart':
-			mouseEvt = 'mouseover';
-			break;
-		case 'touchend':
-			mouseEvt = 'mouseup';
-			break;
-		case 'touchend':
-			mouseEvt = 'mouseout';
-			break;
-		case 'touchmove':
-			mouseEvt = 'mousemove';
-			break;
-		case 'touchmove':
-			mouseEvt = 'mouseover';
-			break;
-		default:
-			return;
-	}
-	const mouseEvent = document.createEvent('MouseEvent');
-	mouseEvent.initMouseEvent(mouseEvt, true, true, window, 1, theTouch.screenX, theTouch.screenY, theTouch.clientX, theTouch.clientY, false, false, false, false, 0, null);
-	theTouch.target.dispatchEvent(mouseEvent);
-	e.preventDefault();
-}
+btnRefresh.addEventListener('touchstart', refresh)
 
-canvas.addEventListener('touchstart', touch2Mouse, true);
-canvas.addEventListener('touchmove', touch2Mouse, true);
-canvas.addEventListener('touchend', touch2Mouse, true);
+// end btnRefresh
