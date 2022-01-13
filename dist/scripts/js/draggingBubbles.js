@@ -143,9 +143,9 @@ function play() {
 	audioElement2.play();
 }
 
-// start mousemove
+// start pointermove
 
-canvas.addEventListener("mousemove", function (e) {
+canvas.addEventListener("pointermove", function (e) {
 	mouse.x = e.pageX - canvas.offsetLeft;
 	mouse.y = e.pageY - canvas.offsetLeft;
 	play();
@@ -154,50 +154,18 @@ canvas.addEventListener("mousemove", function (e) {
 	}
 });
 
-canvas.addEventListener("touchstart", function (e) {
-	mouse.x = e.pageX - canvas.offsetLeft;
-	mouse.y = e.pageY - canvas.offsetLeft;
-	play();
-	if (audioContext.state === 'suspended') {
-		audioContext.resume();
-	}
-});
+// end pointermove
 
-canvas.addEventListener("touchmove", function (e) {
-	mouse.x = e.pageX - canvas.offsetLeft;
-	mouse.y = e.pageY - canvas.offsetLeft;
-	play();
-	if (audioContext.state === 'suspended') {
-		audioContext.resume();
-	}
-});
+// start pointerover
 
-// end mousemove
-
-// start mouseover
-
-canvas.addEventListener("mouseover", function () {
+canvas.addEventListener("pointerover", function () {
 	play();
 	if (audioContext.state === 'suspended') {
 		audioContext.resume();
 	}
 })
 
-canvas.addEventListener("touchstart", function () {
-	play();
-	if (audioContext.state === 'suspended') {
-		audioContext.resume();
-	}
-})
-
-canvas.addEventListener("touchmove", function () {
-	play();
-	if (audioContext.state === 'suspended') {
-		audioContext.resume();
-	}
-})
-
-// end mouseover
+// end pointerover
 
 canvas.addEventListener("click", function (e) {
 	audioContext.suspend();
@@ -206,41 +174,27 @@ canvas.addEventListener("click", function (e) {
 	audioElement2.pause();
 });
 
-// start mouseup
+// start pointerup
 
-canvas.addEventListener("mouseup", function (e) {
+canvas.addEventListener("pointerup", function (e) {
 	audioContext.suspend();
 	bufferSource.stop();
 	audioElement1.pause();
 	audioElement2.pause();
 });
 
-canvas.addEventListener("touchend", function (e) {
+// end pointerup
+
+// start pointerout
+
+canvas.addEventListener("pointerout", function (e) {
 	audioContext.suspend();
 	bufferSource.stop();
 	audioElement1.pause();
 	audioElement2.pause();
 });
 
-// end mouseup
-
-// start mouseout
-
-canvas.addEventListener("mouseout", function (e) {
-	audioContext.suspend();
-	bufferSource.stop();
-	audioElement1.pause();
-	audioElement2.pause();
-});
-
-canvas.addEventListener("touchend", function (e) {
-	audioContext.suspend();
-	bufferSource.stop();
-	audioElement1.pause();
-	audioElement2.pause();
-});
-
-// end mouseout
+// end pointerout
 
 const volumeControl = document.querySelector('#volume')
 volumeControl.addEventListener(
@@ -261,12 +215,7 @@ const btnRefresh = document.querySelector('.btn-refresh')
 
 // start btnPlus
 
-btnPlus.addEventListener('mousedown', function () {
-	currGain = 1.0;
-	gainNode.gain.setTargetAtTime(1.0, audioContext.currentTime + 3, 3);
-})
-
-btnPlus.addEventListener('touchstart', function () {
+btnPlus.addEventListener('pointerdown', function () {
 	currGain = 1.0;
 	gainNode.gain.setTargetAtTime(1.0, audioContext.currentTime + 3, 3);
 })
@@ -275,12 +224,7 @@ btnPlus.addEventListener('touchstart', function () {
 
 // start btnMinus
 
-btnMinus.addEventListener('mousedown', function () {
-	currGain = 0;
-	gainNode.gain.setTargetAtTime(0, audioContext.currentTime + 3, 3);
-})
-
-btnMinus.addEventListener('touchstart', function () {
+btnMinus.addEventListener('pointerdown', function () {
 	currGain = 0;
 	gainNode.gain.setTargetAtTime(0, audioContext.currentTime + 3, 3);
 })
@@ -289,9 +233,6 @@ btnMinus.addEventListener('touchstart', function () {
 
 // start btnRefresh
 
-btnRefresh.addEventListener('mousedown', refresh)
-
-
-btnRefresh.addEventListener('touchstart', refresh)
+btnRefresh.addEventListener('pointerdown', refresh)
 
 // end btnRefresh
