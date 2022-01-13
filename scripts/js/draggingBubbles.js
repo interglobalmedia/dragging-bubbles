@@ -173,6 +173,13 @@ canvas.addEventListener("mouseup", function (e) {
 	audioElement2.pause();
 });
 
+canvas.addEventListener("mouseout", function (e) {
+	audioContext.suspend();
+	bufferSource.stop();
+	audioElement1.pause();
+	audioElement2.pause();
+});
+
 const volumeControl = document.querySelector('#volume')
 volumeControl.addEventListener(
     'input',
@@ -208,16 +215,23 @@ function touch2Mouse(e) {
 
 	switch (e.type) {
 		case 'touchstart':
-			mouseEvt = 'mousedown';
+			mouseEvt = 'mousemove';
+			break;
+		case 'touchstart':
+			mouseEvt = 'mouseover';
 			break;
 		case 'touchend':
 			mouseEvt = 'mouseup';
+			break;
+		case 'touchend':
+			mouseEvt = 'mouseout';
 			break;
 		case 'touchmove':
 			mouseEvt = 'mousemove';
 			break;
 		case 'touchmove':
 			mouseEvt = 'mouseover';
+			break;
 		default:
 			return;
 	}
